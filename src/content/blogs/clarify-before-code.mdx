@@ -2,76 +2,108 @@
 
 Most failures in AI-assisted coding are not model failures — they are **problem-definition failures**.
 
-When teams rush into implementation without hardening requirements, code quality becomes noisy:
+When teams jump into implementation too early, quality gets noisy:
 - scope drifts,
 - naming gets inconsistent,
 - architecture decisions become accidental,
-- and verification arrives too late.
+- and verification comes in too late.
 
-Over time, I started using a simple **clarify-before-code workflow** that treats planning as a first-class engineering step.
+I now use a clarification-first workflow that treats planning as a first-class engineering phase.
 
-## 1) Route the task to the right project context first
+## Core operating contract
 
-Before writing code, identify where the task actually belongs:
-- Which repository is the source of truth?
-- Which module owns the behavior?
-- What existing contracts must remain stable?
+Before any implementation, enforce a strict contract:
 
-This single step removes a lot of wasted effort from edits in the wrong place.
+```md
+1. Start in clarification mode, not implementation mode.
+2. Route the task to the correct project before deep clarification.
+3. Discover existing memory/context before asking repetitive questions.
+4. Block mutating implementation actions until readiness is green.
+5. Allow only read-only discovery before green, with a fixed budget.
+6. Ask both micro naming and macro naming questions.
+7. Define acceptance criteria before coding.
+```
 
-## 2) Use a readiness gate instead of intuition
+This simple structure prevents “fast wrong” progress.
 
-I score readiness across key dimensions before implementation:
-- requirements clarity,
-- project/context confidence,
-- codebase integration points,
-- constraints and non-goals,
-- naming conventions,
-- acceptance criteria.
+## Readiness gate (scored, not guessed)
 
-If the score is weak, I stay in clarification mode. If the score is strong, I move to implementation.
+I score readiness across seven dimensions:
 
-This prevents “looks good” decisions that later fail in review.
+```md
+- Requirements and Scope
+- Project Route and Memory Confidence
+- Current Codebase Context
+- Constraints and Non-Goals
+- Naming Conventions (Micro)
+- Naming Conventions (Macro)
+- Acceptance Criteria and Verification
+```
 
-## 3) Ask targeted questions in rounds
+Each dimension gets `0, 1, or 2`.
 
-Instead of one long questionnaire, run short rounds of high-signal questions:
-- What exactly is in scope?
-- What is explicitly out of scope?
-- Which files or interfaces are authoritative?
-- What test evidence will define done?
+- `RED` → total `0–7`
+- `YELLOW` → total `8–11`
+- `GREEN` → total `12–14`
 
-Round-based clarification improves response speed while still de-risking execution.
+No implementation before **GREEN**.
 
-## 4) Separate naming decisions into micro and macro
+## Example readiness snapshot
 
-Naming is often treated as style, but it is architecture.
+```md
+## Readiness Score
+- Overall: 10/14 (YELLOW)
+- Requirements: 2/2
+- Project Route and Memory: 1/2
+- Codebase Context: 1/2
+- Constraints: 2/2
+- Naming (Micro): 1/2
+- Naming (Macro): 1/2
+- Acceptance Criteria: 2/2
+- Missing for GREEN: project routing evidence, module ownership clarity
+```
 
-I split naming into two layers:
-- **Micro naming:** symbols, functions, classes, files
-- **Macro naming:** modules, service boundaries, API groups
+This makes ambiguity visible and actionable.
 
-When both layers are decided early, code reviews get faster and refactors get cheaper.
+## Round-based clarification (high signal)
 
-## 5) Define verification before implementation
+Instead of one long questionnaire, run short rounds:
 
-A good plan includes proof criteria up front:
-- Which tests must pass?
-- Which regressions are unacceptable?
-- Which observable behavior confirms correctness?
+```md
+Round goals:
+- Confirm exact output format
+- Confirm what is out-of-scope
+- Confirm source-of-truth files/modules
+- Confirm compatibility constraints
+- Confirm naming conventions
+- Confirm tests/checks required for done
+```
 
-If verification is vague, implementation quality is usually vague too.
+Small rounds keep momentum while reducing rework.
 
-## Why this matters
+## Tool trace discipline
 
-AI tools can generate code quickly, but speed without structure produces churn. A clarification-first workflow gives you:
-- better first-pass quality,
+When any discovery tool is used pre-implementation, keep a lightweight trace:
+
+```md
+## Tool Trace
+- Tool: <name>
+- Why this tool now: <reason>
+- What it checked: <scope>
+- Impact on certainty: <increase/decrease + why>
+```
+
+This forces explicit reasoning and improves review quality.
+
+## Why this framework works
+
+This approach gives me:
+- better first-pass implementation quality,
 - fewer rollback edits,
-- clearer collaboration across teammates,
-- and more predictable delivery.
+- faster code reviews,
+- and clearer handoffs.
 
-In practice, the strongest productivity gain didn’t come from writing more code per minute — it came from **starting with sharper intent**.
+AI can generate code quickly — but clarity determines whether that speed compounds or backfires.
 
----
-
-If you’re building with AI coding systems, try this once on a real feature: score readiness, resolve gaps, then execute. The quality jump is immediate.
+The best productivity jump I’ve seen came from one shift:
+**sharper intent before typing code.**
