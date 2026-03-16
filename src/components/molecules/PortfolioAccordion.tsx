@@ -4,6 +4,7 @@ import styles from "./PortfolioAccordion.module.css";
 export type PortfolioItem = {
   title: string;
   description: string;
+  bullets?: string[];
   images?: string[];
 };
 
@@ -39,7 +40,14 @@ export default function PortfolioAccordion({ title, items, linkHref, anchorId }:
             </button>
             {openIndex === idx && (
               <div className={styles.itemBody}>
-                <p>{item.description}</p>
+                {item.description ? <p>{item.description}</p> : null}
+                {item.bullets?.length ? (
+                  <ul>
+                    {item.bullets.map((bullet) => (
+                      <li key={bullet}>{bullet}</li>
+                    ))}
+                  </ul>
+                ) : null}
                 {item.images?.length ? (
                   <div className={styles.carousel}>
                     <div className={styles.track}>

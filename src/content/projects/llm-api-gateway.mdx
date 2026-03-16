@@ -7,4 +7,7 @@ export const meta = {
 
 # LLM API Gateway
 
-Designed an OpenAI‑compatible **/v1/chat/completions** endpoint with API key lifecycle management, provider abstraction (OpenAI/Anthropic/Gemini), and middleware for logging + rate limiting.
+- Designed an OpenAI-compatible **`/v1/chat/completions`** endpoint for seamless client migration.
+- Implemented API key lifecycle management with request-level authentication and validation.
+- Built a provider abstraction layer supporting **OpenAI, Anthropic, and Gemini**.
+- Structured a modular middleware architecture for logging, rate limiting, and future extensibility.

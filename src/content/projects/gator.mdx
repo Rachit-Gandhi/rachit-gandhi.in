@@ -7,4 +7,7 @@ export const meta = {
 
 # Gator — CLI RSS Feed Aggregator
 
-User registration, feed management, and browsing backed by PostgreSQL. Migrations via **goose** and type‑safe queries with **SQLC**. Includes concurrency‑aware feed fetching with rate‑limit handling.
+- Built a CLI RSS aggregator supporting user registration, feed management, and browsing with PostgreSQL backend.
+- Implemented schema migrations using **goose** and type-safe query generation via **sqlc**.
+- Added concurrency-aware feed fetching with rate-limit handling.
+- Distributed as a statically compiled binary using `go build` and `go install`.
