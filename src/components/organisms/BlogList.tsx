@@ -3,7 +3,12 @@ import styles from "./BlogList.module.css";
 
 export const posts = [
   {
-    title: "How I Use OpenClaw Daily (Codex Subscription + Home Raspberry Pi)",
+    title: "About Me: Backend Brain, AI Curiosity, and Controlled Chaos",
+    date: "2026-03-16",
+    slug: "about-me-quirky-builder",
+  },
+  {
+    title: "OpenClaw + Home Raspberry Pi (4 GB): My Practical AI Setup",
     date: "2026-03-16",
     slug: "openclaw-on-codex-and-raspi",
   },
@@ -11,11 +16,6 @@ export const posts = [
     title: "Clarify Before Code: A Practical Framework for Building Better AI-Assisted Software",
     date: "2026-03-16",
     slug: "clarify-before-code",
-  },
-  {
-    title: "Sample Blog Post",
-    date: "2026-03-03",
-    slug: "sample-post",
   },
 ];
 
