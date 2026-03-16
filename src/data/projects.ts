@@ -1,6 +1,6 @@
-import Gator, { meta as gatorMeta } from "../content/projects/gator.mdx";
-import Grading, { meta as gradingMeta } from "../content/projects/automated-grading.mdx";
-import Gateway, { meta as gatewayMeta } from "../content/projects/llm-api-gateway.mdx";
+import ScrumCli, { meta as scrumCliMeta } from "../content/projects/gator.mdx";
+import GoRouter, { meta as goRouterMeta } from "../content/projects/automated-grading.mdx";
+import RubricSummary, { meta as rubricSummaryMeta } from "../content/projects/llm-api-gateway.mdx";
 
 export type ProjectMeta = {
   title: string;
@@ -16,7 +16,7 @@ export type ProjectMeta = {
 type MetaOnly = Omit<ProjectMeta, "slug" | "Component">;
 
 export const projects: ProjectMeta[] = [
-  { ...(gatorMeta as MetaOnly), slug: "gator", Component: Gator },
-  { ...(gradingMeta as MetaOnly), slug: "automated-grading", Component: Grading },
-  { ...(gatewayMeta as MetaOnly), slug: "llm-api-gateway", Component: Gateway },
+  { ...(scrumCliMeta as MetaOnly), slug: "scrum-cli", Component: ScrumCli },
+  { ...(goRouterMeta as MetaOnly), slug: "go-router", Component: GoRouter },
+  { ...(rubricSummaryMeta as MetaOnly), slug: "rubric-is-all-you-need", Component: RubricSummary },
 ];
