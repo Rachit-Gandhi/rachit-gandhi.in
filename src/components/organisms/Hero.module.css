@@ -11,6 +11,7 @@
   grid-template-columns: minmax(0, 2.1fr) minmax(260px, 1fr);
   gap: 24px;
   align-items: stretch;
+  overflow: hidden;
 }
 
 @media (max-width: 900px) {
@@ -43,7 +44,9 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  overflow-x: auto;
+  overflow: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Core ASCII fixes */
@@ -57,10 +60,13 @@
   white-space: pre;
 
   color: var(--text);
+  display: inline-block;
+  width: max-content;
+  min-width: 100%;
   /* 1x0.65 => 0.5x0.325 */
   /*transform:scaleY(0.5);*/
   transform: scaleX(0.625);
-  transform-origin: top center;
+  transform-origin: top left;
 }
 
 .sub {
@@ -120,23 +126,27 @@
 
 @media (max-width: 720px) {
   .asciiWrap {
-    justify-content: center;
-    align-items: center;
-    max-height: 260px;
-    overflow-y: auto;
+    justify-content: flex-start;
+    align-items: flex-start;
+    max-height: 240px;
   }
 
   .asciiArt {
-    margin: 0 auto;
-    font-size: 4px;
-    line-height: 0.85;
-    transform: none; /* avoid horizontal skew on small screens */
+    margin: 0;
+    font-size: clamp(2.6px, 1.4vw, 4px);
+    line-height: 0.82;
+    transform: scaleX(0.625);
   }
 }
 
 @media (max-width: 480px) {
+  .asciiWrap {
+    max-height: 200px;
+  }
+
   .asciiArt {
-    font-size: 3px;
+    font-size: clamp(2.2px, 1.9vw, 3.4px);
+    line-height: 0.8;
   }
 }
 
