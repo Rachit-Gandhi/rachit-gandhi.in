@@ -3,19 +3,19 @@ import styles from "./BlogList.module.css";
 
 export const posts = [
   {
-    title: "Sample Blog Post",
-    date: "2026-03-03",
-    slug: "sample-post",
+    title: "About Me: Backend Brain, AI Curiosity, and Controlled Chaos",
+    date: "2026-03-16",
+    slug: "about-me-quirky-builder",
   },
   {
-    title: "Second Placeholder",
-    date: "2026-03-02",
-    slug: "second-post",
+    title: "OpenClaw + Home Raspberry Pi (4 GB): My Practical AI Setup",
+    date: "2026-03-16",
+    slug: "openclaw-on-codex-and-raspi",
   },
   {
-    title: "Third Placeholder",
-    date: "2026-03-01",
-    slug: "third-post",
+    title: "Clarify Before Code: A Practical Framework for Building Better AI-Assisted Software",
+    date: "2026-03-16",
+    slug: "clarify-before-code",
   },
 ];
 

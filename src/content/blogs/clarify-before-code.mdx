@@ -1,0 +1,109 @@
+# Clarify Before Code: A Practical Framework for Building Better AI-Assisted Software
+
+Most failures in AI-assisted coding are not model failures — they are **problem-definition failures**.
+
+When teams jump into implementation too early, quality gets noisy:
+- scope drifts,
+- naming gets inconsistent,
+- architecture decisions become accidental,
+- and verification comes in too late.
+
+I now use a clarification-first workflow that treats planning as a first-class engineering phase. I built this as a custom skill using Codex Skill Builder, and it has become my default way to define problems before implementation.
+
+## Core operating contract
+
+Before any implementation, enforce a strict contract:
+
+```md
+1. Start in clarification mode, not implementation mode.
+2. Route the task to the correct project before deep clarification.
+3. Discover existing memory/context before asking repetitive questions.
+4. Block mutating implementation actions until readiness is green.
+5. Allow only read-only discovery before green, with a fixed budget.
+6. Ask both micro naming and macro naming questions.
+7. Define acceptance criteria before coding.
+```
+
+This simple structure prevents “fast wrong” progress.
+
+## Readiness gate (scored, not guessed)
+
+I score readiness across seven dimensions:
+
+```md
+- Requirements and Scope
+- Project Route and Memory Confidence
+- Current Codebase Context
+- Constraints and Non-Goals
+- Naming Conventions (Micro)
+- Naming Conventions (Macro)
+- Acceptance Criteria and Verification
+```
+
+Each dimension gets `0, 1, or 2`.
+
+- `RED` → total `0–7`
+- `YELLOW` → total `8–11`
+- `GREEN` → total `12–14`
+
+No implementation before **GREEN**.
+
+## Example readiness snapshot
+
+```md
+## Readiness Score
+- Overall: 10/14 (YELLOW)
+- Requirements: 2/2
+- Project Route and Memory: 1/2
+- Codebase Context: 1/2
+- Constraints: 2/2
+- Naming (Micro): 1/2
+- Naming (Macro): 1/2
+- Acceptance Criteria: 2/2
+- Missing for GREEN: project routing evidence, module ownership clarity
+```
+
+This makes ambiguity visible and actionable.
+
+## Round-based clarification (high signal)
+
+Instead of one long questionnaire, run short rounds:
+
+```md
+Round goals:
+- Confirm exact output format
+- Confirm what is out-of-scope
+- Confirm source-of-truth files/modules
+- Confirm compatibility constraints
+- Confirm naming conventions
+- Confirm tests/checks required for done
+```
+
+Small rounds keep momentum while reducing rework.
+
+## Tool trace discipline
+
+When any discovery tool is used pre-implementation, keep a lightweight trace:
+
+```md
+## Tool Trace
+- Tool: <name>
+- Why this tool now: <reason>
+- What it checked: <scope>
+- Impact on certainty: <increase/decrease + why>
+```
+
+This forces explicit reasoning and improves review quality.
+
+## Why this framework works
+
+This approach gives me:
+- better first-pass implementation quality,
+- fewer rollback edits,
+- faster code reviews,
+- and clearer handoffs.
+
+AI can generate code quickly — but clarity determines whether that speed compounds or backfires.
+
+The best productivity jump I’ve seen came from one shift:
+**sharper intent before typing code.**
