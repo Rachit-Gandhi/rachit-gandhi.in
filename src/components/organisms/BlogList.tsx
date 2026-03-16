@@ -3,6 +3,11 @@ import styles from "./BlogList.module.css";
 
 export const posts = [
   {
+    title: "How I Use OpenClaw Daily (Codex Subscription + Home Raspberry Pi)",
+    date: "2026-03-16",
+    slug: "openclaw-on-codex-and-raspi",
+  },
+  {
     title: "Clarify Before Code: A Practical Framework for Building Better AI-Assisted Software",
     date: "2026-03-16",
     slug: "clarify-before-code",
@@ -11,11 +16,6 @@ export const posts = [
     title: "Sample Blog Post",
     date: "2026-03-03",
     slug: "sample-post",
-  },
-  {
-    title: "Second Placeholder",
-    date: "2026-03-02",
-    slug: "second-post",
   },
 ];
 
