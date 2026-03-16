@@ -3,6 +3,11 @@ import styles from "./BlogList.module.css";
 
 export const posts = [
   {
+    title: "Clarify Before Code: A Practical Framework for Building Better AI-Assisted Software",
+    date: "2026-03-16",
+    slug: "clarify-before-code",
+  },
+  {
     title: "Sample Blog Post",
     date: "2026-03-03",
     slug: "sample-post",
@@ -11,11 +16,6 @@ export const posts = [
     title: "Second Placeholder",
     date: "2026-03-02",
     slug: "second-post",
-  },
-  {
-    title: "Third Placeholder",
-    date: "2026-03-01",
-    slug: "third-post",
   },
 ];
 

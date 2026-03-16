@@ -1,7 +1,9 @@
 import { useParams } from "react-router-dom";
+import ClarifyBeforeCode from "../content/blogs/clarify-before-code.mdx";
 import SamplePost from "../content/blogs/sample.mdx";
 
 const posts: Record<string, React.FC> = {
+  "clarify-before-code": ClarifyBeforeCode,
   "sample-post": SamplePost,
 };
 

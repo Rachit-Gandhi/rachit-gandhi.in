@@ -1,0 +1,77 @@
+# Clarify Before Code: A Practical Framework for Building Better AI-Assisted Software
+
+Most failures in AI-assisted coding are not model failures — they are **problem-definition failures**.
+
+When teams rush into implementation without hardening requirements, code quality becomes noisy:
+- scope drifts,
+- naming gets inconsistent,
+- architecture decisions become accidental,
+- and verification arrives too late.
+
+Over time, I started using a simple **clarify-before-code workflow** that treats planning as a first-class engineering step.
+
+## 1) Route the task to the right project context first
+
+Before writing code, identify where the task actually belongs:
+- Which repository is the source of truth?
+- Which module owns the behavior?
+- What existing contracts must remain stable?
+
+This single step removes a lot of wasted effort from edits in the wrong place.
+
+## 2) Use a readiness gate instead of intuition
+
+I score readiness across key dimensions before implementation:
+- requirements clarity,
+- project/context confidence,
+- codebase integration points,
+- constraints and non-goals,
+- naming conventions,
+- acceptance criteria.
+
+If the score is weak, I stay in clarification mode. If the score is strong, I move to implementation.
+
+This prevents “looks good” decisions that later fail in review.
+
+## 3) Ask targeted questions in rounds
+
+Instead of one long questionnaire, run short rounds of high-signal questions:
+- What exactly is in scope?
+- What is explicitly out of scope?
+- Which files or interfaces are authoritative?
+- What test evidence will define done?
+
+Round-based clarification improves response speed while still de-risking execution.
+
+## 4) Separate naming decisions into micro and macro
+
+Naming is often treated as style, but it is architecture.
+
+I split naming into two layers:
+- **Micro naming:** symbols, functions, classes, files
+- **Macro naming:** modules, service boundaries, API groups
+
+When both layers are decided early, code reviews get faster and refactors get cheaper.
+
+## 5) Define verification before implementation
+
+A good plan includes proof criteria up front:
+- Which tests must pass?
+- Which regressions are unacceptable?
+- Which observable behavior confirms correctness?
+
+If verification is vague, implementation quality is usually vague too.
+
+## Why this matters
+
+AI tools can generate code quickly, but speed without structure produces churn. A clarification-first workflow gives you:
+- better first-pass quality,
+- fewer rollback edits,
+- clearer collaboration across teammates,
+- and more predictable delivery.
+
+In practice, the strongest productivity gain didn’t come from writing more code per minute — it came from **starting with sharper intent**.
+
+---
+
+If you’re building with AI coding systems, try this once on a real feature: score readiness, resolve gaps, then execute. The quality jump is immediate.
