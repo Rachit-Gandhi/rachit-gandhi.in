@@ -1,5 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import BlogCard from "../molecules/BlogCard";
+import { posts } from "./BlogList";
 import styles from "./BlogSection.module.css";
 
 export default function BlogSection() {
@@ -7,14 +9,14 @@ export default function BlogSection() {
     <section className={styles.section} id="blog">
       <div className={styles.header}>
         <h2 className={styles.title}>Blog</h2>
-        <a className={styles.link} href="/blog" aria-label="Blog link">
+        <Link className={styles.link} to="/blog" aria-label="Blog link">
           <ArrowUpRight size={16} />
-        </a>
+        </Link>
       </div>
       <div className={styles.scroll}>
-        <BlogCard title="Post title 1" date="Date" />
-        <BlogCard title="Post title 2" date="Date" />
-        <BlogCard title="Post title 3" date="Date" />
+        {posts.slice(0, 3).map((post) => (
+          <BlogCard key={post.slug} title={post.title} date={post.date} slug={post.slug} image={post.image} />
+        ))}
       </div>
     </section>
   );
