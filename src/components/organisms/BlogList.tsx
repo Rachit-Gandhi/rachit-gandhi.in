@@ -1,7 +1,14 @@
 import BlogListItem from "../molecules/BlogListItem";
 import styles from "./BlogList.module.css";
 
-export const posts = [
+export type BlogPostMeta = {
+  title: string;
+  date: string;
+  slug: string;
+  image?: string;
+};
+
+export const posts: BlogPostMeta[] = [
   {
     title: "About Me: Backend Brain, AI Curiosity, and Controlled Chaos",
     date: "2026-03-16",
