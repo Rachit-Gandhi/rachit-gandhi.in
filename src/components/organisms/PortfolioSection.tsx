@@ -38,13 +38,6 @@ export default function PortfolioSection() {
     },
   ];
 
-  const projectItems: PortfolioItem[] = [
-    {
-      title: "Projects — see full list",
-      description: "Open detailed writeups for architecture, stack, and outcomes.",
-      images: [],
-    },
-  ];
 
   const publicationItems: PortfolioItem[] = [
     {
@@ -83,8 +76,7 @@ export default function PortfolioSection() {
       <div className={styles.stack}>
         <PortfolioAccordion title="Summary" items={summaryItems} />
         <PortfolioAccordion title="Work Experience" items={workItems} />
-        <PortfolioAccordion title="Projects" items={projectItems} linkHref="/projects" anchorId="projects" />
-        <div className={styles.miniProjects}>
+        <div className={styles.miniProjects} id="projects">
           <ProjectsList limit={3} />
         </div>
         <PortfolioAccordion title="Publication" items={publicationItems} />
