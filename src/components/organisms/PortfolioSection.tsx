@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PortfolioAccordion from "../molecules/PortfolioAccordion";
 import type { PortfolioItem } from "../molecules/PortfolioAccordion";
 import ProjectsList from "./ProjectsList";
@@ -76,8 +77,14 @@ export default function PortfolioSection() {
       <div className={styles.stack}>
         <PortfolioAccordion title="Summary" items={summaryItems} />
         <PortfolioAccordion title="Work Experience" items={workItems} />
-        <div className={styles.miniProjects} id="projects">
-          <ProjectsList limit={3} />
+        <div id="projects">
+          <div className={styles.header}>
+            <h3 className={styles.title}>Projects</h3>
+            <Link to="/projects" className={styles.link}>See all</Link>
+          </div>
+          <div className={styles.miniProjects}>
+            <ProjectsList limit={3} />
+          </div>
         </div>
         <PortfolioAccordion title="Publication" items={publicationItems} />
         <PortfolioAccordion title="Technical Skills" items={skillsItems} />
