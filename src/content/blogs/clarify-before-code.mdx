@@ -1,109 +1,106 @@
-# Clarify Before Code: A Practical Framework for Building Better AI-Assisted Software
+# Clarify Before Code: How I Use a Readiness Gate for AI-Assisted Engineering
 
-Most failures in AI-assisted coding are not model failures — they are **problem-definition failures**.
+Fast code generation is useful, but in production work the real bottleneck is usually not typing speed — it’s **decision quality**.
 
-When teams jump into implementation too early, quality gets noisy:
-- scope drifts,
-- naming gets inconsistent,
-- architecture decisions become accidental,
-- and verification comes in too late.
+That’s why I built a custom Codex Skill Builder workflow that forces a readiness gate before implementation. The goal is simple: reduce avoidable rework by increasing clarity first.
 
-I now use a clarification-first workflow that treats planning as a first-class engineering phase. I built this as a custom skill using Codex Skill Builder, and it has become my default way to define problems before implementation.
+## The core idea
 
-## Core operating contract
+Instead of "prompt → code → patch", the workflow is:
 
-Before any implementation, enforce a strict contract:
+1. Clarify intent
+2. Route to the correct codebase context
+3. Score readiness
+4. Only then allow mutating implementation
 
-```md
-1. Start in clarification mode, not implementation mode.
-2. Route the task to the correct project before deep clarification.
-3. Discover existing memory/context before asking repetitive questions.
-4. Block mutating implementation actions until readiness is green.
-5. Allow only read-only discovery before green, with a fixed budget.
-6. Ask both micro naming and macro naming questions.
-7. Define acceptance criteria before coding.
-```
+This sounds slower, but in practice it shortens total cycle time by cutting rewrite loops.
 
-This simple structure prevents “fast wrong” progress.
+## What the gate actually checks
 
-## Readiness gate (scored, not guessed)
+I score seven dimensions, each from `0` to `2`:
 
-I score readiness across seven dimensions:
+- Requirements and scope
+- Project route and context confidence
+- Current codebase integration points
+- Constraints and non-goals
+- Naming conventions (micro)
+- Naming conventions (macro)
+- Acceptance criteria and verification
 
-```md
-- Requirements and Scope
-- Project Route and Memory Confidence
-- Current Codebase Context
-- Constraints and Non-Goals
-- Naming Conventions (Micro)
-- Naming Conventions (Macro)
-- Acceptance Criteria and Verification
-```
+Gate bands:
 
-Each dimension gets `0, 1, or 2`.
+- `RED` (0–7): too ambiguous, stay in clarification mode
+- `YELLOW` (8–11): partial clarity, resolve high-risk gaps
+- `GREEN` (12–14): safe to execute implementation
 
-- `RED` → total `0–7`
-- `YELLOW` → total `8–11`
-- `GREEN` → total `12–14`
+I also keep hard guards: requirements, codebase route, and acceptance criteria cannot be weak even if total score looks acceptable.
 
-No implementation before **GREEN**.
+## Functionalities that matter in real projects
 
-## Example readiness snapshot
+### 1) Clarification rounds, not one giant questionnaire
+
+I run short rounds of targeted questions so momentum stays high:
+- what’s in scope vs out of scope,
+- where this change belongs,
+- what must stay backward-compatible,
+- what proof will mark done.
+
+### 2) Pre-green tool budget
+
+Before gate is green, discovery is allowed but constrained:
+- read-only checks only,
+- fixed tool-call budget,
+- no file mutations.
+
+This prevents premature implementation while still allowing useful reconnaissance.
+
+### 3) Context routing before coding
+
+The workflow explicitly validates which repo/module should own the change. Misrouting is a silent source of wasted effort, so this check pays off quickly.
+
+### 4) Naming decisions at two levels
+
+I separate naming into:
+- **micro**: symbols, functions, files,
+- **macro**: modules, services, boundaries.
+
+This improves consistency and makes reviews much cleaner.
+
+### 5) Verification-first definition of done
+
+Before coding starts, expected evidence is already defined:
+- mandatory tests/checks,
+- regression boundaries,
+- user-visible behavior expectations.
+
+So implementation happens against a concrete finish line, not fuzzy intent.
+
+## A sample gate snapshot
 
 ```md
 ## Readiness Score
 - Overall: 10/14 (YELLOW)
 - Requirements: 2/2
-- Project Route and Memory: 1/2
-- Codebase Context: 1/2
+- Route & Context: 1/2
+- Codebase Integration: 1/2
 - Constraints: 2/2
 - Naming (Micro): 1/2
 - Naming (Macro): 1/2
 - Acceptance Criteria: 2/2
-- Missing for GREEN: project routing evidence, module ownership clarity
+- Missing for GREEN: module ownership proof, integration boundary confirmation
 ```
 
-This makes ambiguity visible and actionable.
+This makes uncertainty visible, discussable, and fixable.
 
-## Round-based clarification (high signal)
+## Why I keep using this
 
-Instead of one long questionnaire, run short rounds:
+This workflow consistently gives me:
+- fewer assumption-driven bugs,
+- fewer rewrite passes,
+- better first-pass architecture decisions,
+- cleaner handoffs and reviews.
 
-```md
-Round goals:
-- Confirm exact output format
-- Confirm what is out-of-scope
-- Confirm source-of-truth files/modules
-- Confirm compatibility constraints
-- Confirm naming conventions
-- Confirm tests/checks required for done
-```
+So my conclusion is:
 
-Small rounds keep momentum while reducing rework.
-
-## Tool trace discipline
-
-When any discovery tool is used pre-implementation, keep a lightweight trace:
-
-```md
-## Tool Trace
-- Tool: <name>
-- Why this tool now: <reason>
-- What it checked: <scope>
-- Impact on certainty: <increase/decrease + why>
-```
-
-This forces explicit reasoning and improves review quality.
-
-## Why this framework works
-
-This approach gives me:
-- better first-pass implementation quality,
-- fewer rollback edits,
-- faster code reviews,
-- and clearer handoffs.
-
-AI can generate code quickly — but clarity determines whether that speed compounds or backfires.
-
-The best productivity jump I’ve seen came from one shift:
-**sharper intent before typing code.**
+AI coding quality is heavily shaped by **when** we allow execution.
+A good gate doesn’t reduce velocity — it protects it.
