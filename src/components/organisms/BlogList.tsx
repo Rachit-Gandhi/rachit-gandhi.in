@@ -10,6 +10,11 @@ export type BlogPostMeta = {
 
 export const posts: BlogPostMeta[] = [
   {
+    title: "OpenClaw on Raspberry Pi 5: Why Multi-Surface Workflows Beat One Mega-Bot",
+    date: "2026-03-21",
+    slug: "openclaw-raspberry-pi5-multi-surface-workflows",
+  },
+  {
     title: "About Me: Backend Brain, AI Curiosity, and Controlled Chaos",
     date: "2026-03-16",
     slug: "about-me-quirky-builder",

@@ -1,0 +1,107 @@
+# OpenClaw on Raspberry Pi 5: Why Multi-Surface Workflows Beat One Mega-Bot
+
+This is a follow-up to my earlier OpenClaw + Raspberry Pi setup post, but with a stronger workflow lens.
+
+The biggest upgrade in my setup wasn’t a model change — it was **surface design**.
+
+I stopped thinking in terms of “one AI assistant everywhere,” and started thinking in terms of:
+- **where** I’m interacting,
+- **what type of work** belongs there,
+- and **how much autonomy** is safe in that context.
+
+Running OpenClaw on a **Raspberry Pi 5** made this approach practical: always-on orchestration, but different behavior per messaging surface.
+
+## Current architecture (practical, not fancy)
+
+At a high level:
+- **Raspberry Pi 5** runs OpenClaw as the persistent control layer.
+- **Telegram** is my fast, mobile-first assistant surface.
+- **Project/coding surfaces** (e.g., Slack-like team contexts) are used for structured technical collaboration.
+- The assistant shares system continuity, but behavior is intentionally different by channel.
+
+That separation made the system feel useful day-to-day instead of noisy.
+
+## Why one universal bot usually degrades
+
+When one assistant tries to do everything identically across all contexts, failure modes show up fast:
+- wrong tone for the channel,
+- too much verbosity in lightweight chats,
+- accidental overreach in group settings,
+- coding assumptions leaking into personal interactions.
+
+The technical wiring is easy. **Boundary design** is the hard part.
+
+## The workflow split I now use
+
+### 1) Mobile/personal workflows (Telegram)
+
+Optimized for:
+- quick asks,
+- short check-ins,
+- lightweight reminders,
+- rapid context retrieval while away from desk.
+
+Design rule: low friction, concise responses, minimal ceremony.
+
+### 2) Project/coding workflows (team surface)
+
+Optimized for:
+- repo-aware work,
+- branch/PR iteration,
+- multi-step technical tasks,
+- clearer progress and risk communication.
+
+Design rule: higher structure, explicit context, stronger safety boundaries.
+
+## Why Raspberry Pi 5 matters here
+
+Pi 5 is not a “train giant models” machine. That’s not the job.
+
+Its role is:
+- always-on orchestration,
+- reliable scheduling,
+- stateful workflow continuity,
+- low-power background execution.
+
+That means I get dependable automations without keeping my laptop active 24/7.
+
+## Design decisions that improved quality
+
+### A) Surface-specific behavior
+The assistant should adapt by channel:
+- personal chat ≠ group thread ≠ coding workflow.
+
+### B) Explicit boundaries
+I define what’s allowed automatically vs what needs confirmation, especially for external actions.
+
+### C) File-based continuity
+Instead of pretending to have magical memory, I keep continuity explicit in workspace files and notes.
+
+### D) Participation over domination
+In shared spaces, the assistant should contribute when valuable, not reply to everything.
+
+## Security posture (what I intentionally keep strict)
+
+- No secret leakage in prompts/posts.
+- No publishing internal tokens/URLs/config internals.
+- Public writing focuses on architecture patterns, not private operational details.
+
+This keeps the system shareable without making it fragile.
+
+## What changed after this redesign
+
+I noticed three practical gains:
+- better response quality per context,
+- lower noise in daily usage,
+- more trust in automation because boundaries are clearer.
+
+The setup now feels less like a demo and more like a durable personal operating system.
+
+## Final takeaway
+
+OpenClaw on Raspberry Pi 5 became much more useful once I separated workflows by surface.
+
+Not one universal bot.
+Not one universal behavior.
+
+Just one orchestration layer, with context-aware assistant behavior mapped to the job each surface is best at.
