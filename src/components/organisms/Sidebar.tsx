@@ -24,7 +24,9 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
         <a href="/Rachit_Gandhi_Updated_Resume.pdf" className={styles.linkWrap} download>
           <Button className={styles.link}>Resume</Button>
         </a>
-        <Button className={styles.link}>Contact Me</Button>
+        <a href="mailto:rachitgandhi27@gmail.com" className={styles.linkWrap}>
+          <Button className={styles.link}>Contact Me</Button>
+        </a>
       </div>
     </aside>
   );

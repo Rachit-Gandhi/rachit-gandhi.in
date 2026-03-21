@@ -19,7 +19,9 @@ export default function Header({ onMenuOpen }: HeaderProps) {
         <a href="/Rachit_Gandhi_Updated_Resume.pdf" className={styles.linkWrap} download>
           <Button>Resume</Button>
         </a>
-        <Button>Contact Me</Button>
+        <a href="mailto:rachitgandhi27@gmail.com" className={styles.linkWrap}>
+          <Button>Contact Me</Button>
+        </a>
       </nav>
       <button className={styles.menuToggle} aria-label="Open menu" onClick={onMenuOpen}>
         <Menu size={20} />
