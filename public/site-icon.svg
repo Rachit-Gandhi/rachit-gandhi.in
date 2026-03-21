@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="RG AI icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1220"/>
+      <stop offset="100%" stop-color="#131C2F"/>
+    </linearGradient>
+    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#36F3C8"/>
+      <stop offset="100%" stop-color="#32A4FF"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect x="12" y="12" width="232" height="232" rx="52" fill="url(#bg)"/>
+
+  <!-- Circuit nodes -->
+  <circle cx="62" cy="62" r="8" fill="#36F3C8"/>
+  <circle cx="194" cy="62" r="8" fill="#32A4FF"/>
+  <circle cx="194" cy="194" r="8" fill="#36F3C8"/>
+
+  <!-- Circuit traces -->
+  <path d="M62 62 L96 62 L96 96" stroke="#36F3C8" stroke-width="6" fill="none" opacity="0.75"/>
+  <path d="M194 62 L160 62 L160 96" stroke="#32A4FF" stroke-width="6" fill="none" opacity="0.75"/>
+  <path d="M194 194 L160 194 L160 160" stroke="#36F3C8" stroke-width="6" fill="none" opacity="0.75"/>
+
+  <!-- Abstract RG monogram -->
+  <g filter="url(#glow)" stroke="url(#neon)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- R -->
+    <path d="M74 176 V80 H130 C146 80 158 92 158 108 C158 124 146 136 130 136 H74"/>
+    <path d="M116 136 L158 176"/>
+    <!-- G -->
+    <path d="M182 106 C176 91 162 82 146 82 C122 82 104 101 104 128 C104 155 122 174 146 174 C167 174 184 159 188 138 H154"/>
+  </g>
+</svg>
