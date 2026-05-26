@@ -1,8 +1,8 @@
 export const lightTheme = {
   name: "mint-latte",
   colors: {
-    bg: "#F7F4EC",
-    surface: "#EDE6D8",
+    bg: "#EDE6D8",
+    surface: "#F3EDE4",
     primary: "#4CAF7D",
     secondary: "#7FBFA1",
     accent: "#A67C52",

@@ -9,15 +9,16 @@ type BlogListItemProps = {
   image?: string;
 };
 
-export default function BlogListItem({ title, date, slug, image }: BlogListItemProps) {
+export default function BlogListItem({ title, date, slug }: BlogListItemProps) {
   return (
     <Link to={`/blog/${slug}`} className={styles.item}>
-      <div className={styles.thumb}>{image ? <img src={image} alt={title} /> : <span>Read post →</span>}</div>
-      <div className={styles.content}>
-        <div className={styles.title}>{title}</div>
-        <div className={styles.date}>{date}</div>
+      <div className={styles.header}>
+        <span className={styles.title}>{title}</span>
       </div>
-      <ArrowUpRight size={16} className={styles.icon} />
+      <div className={styles.date}>{date}</div>
+      <div className={styles.icon}>
+        <ArrowUpRight size={14} />
+      </div>
     </Link>
   );
 }

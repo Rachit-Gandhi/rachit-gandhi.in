@@ -20,6 +20,27 @@ body {
   color: var(--text);
 }
 
+body,
+header,
+main,
+section,
+article,
+div,
+a,
+button,
+span,
+p,
+h1,
+h2,
+h3,
+li {
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease,
+    box-shadow 220ms ease;
+}
+
 .page {
   min-height: 100vh;
   display: flex;

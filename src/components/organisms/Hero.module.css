@@ -1,185 +1,191 @@
 .hero {
-  padding: 40px 0 60px;
+  padding: 20px 0 34px;
 }
 
 .heroInner {
-  background: var(--surface);
-  border-radius: 16px;
-  padding: 32px 32px 32px 32px;
-  min-height: 220px;
-  display: grid;
-  grid-template-columns: minmax(0, 2.1fr) minmax(260px, 1fr);
-  gap: 24px;
-  align-items: stretch;
+  min-height: 0;
 }
 
-@media (max-width: 900px) {
-  .heroInner {
-    grid-template-columns: 1fr;
-    padding: 24px 20px;
-  }
-  .left {
-    align-items: center;
-    text-align: center;
-  }
-  .asciiWrap {
-    justify-content: center;
-    width: 100%;
-  }
-  .sub {
-    text-align: center;
-  }
-}
-
-.left {
+.fetchPanel {
+  min-width: 0;
+  height: 360px;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-/* Prevent layout squeezing the ASCII, keep aligned left */
-.asciiWrap {
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  overflow-x: auto;
-}
-
-/* Core ASCII fixes */
-.asciiArt {
+  padding: 18px;
+  border: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
+  border-radius: 10px;
+  background:
+    radial-gradient(
+      circle at 20% 38%,
+      color-mix(in oklab, var(--primary) 12%, transparent),
+      transparent 34%
+    ),
+    color-mix(in oklab, var(--bg) 20%, transparent);
+  overflow: hidden;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-               "Liberation Mono", "Courier New", monospace;
+    "Liberation Mono", "Courier New", monospace;
+}
 
-  font-size: clamp(4px, 0.6vw, 13px); /* responsive scaling */
-  line-height: 0.8;                   /* prevents vertical distortion */
+.chromeBar {
+  flex: 0 0 auto;
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.windowDots {
+  display: flex;
+  gap: 7px;
+}
+
+.windowDots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--text) 16%, transparent);
+}
+
+.windowDots span:nth-child(1) {
+  background: #c56f5c;
+}
+
+.windowDots span:nth-child(2) {
+  background: #d2a85d;
+}
+
+.windowDots span:nth-child(3) {
+  background: var(--primary);
+}
+
+.fetchPrompt {
+  min-width: 0;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.fetchOutput {
+  width: min(100%, 1120px);
+  min-height: 0;
+  flex: 1;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 360px minmax(0, 720px);
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+.asciiWrap {
+  justify-self: end;
+  width: 360px;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+}
+
+.asciiArt {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 5.2px;
+  line-height: 0.78;
   letter-spacing: 0;
   white-space: pre;
-
   color: var(--text);
-  /* 1x0.65 => 0.5x0.325 */
-  /*transform:scaleY(0.5);*/
-  transform: scaleX(0.625);
-  transform-origin: top center;
+  transform: scaleX(0.62);
+  transform-origin: center;
+  text-shadow: 0 0 16px color-mix(in oklab, var(--primary) 24%, transparent);
 }
 
-.sub {
-  color: var(--textMuted);
-  font-size: 14px;
-}
-
-.credit {
-  font-size: 12px;
-  opacity: 0.9;
-}
-
-.recent {
+.fetchInfo {
+  min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.recentHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.fetchIdentity {
+  display: grid;
+  gap: 3px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid color-mix(in oklab, var(--text) 11%, transparent);
 }
 
-.recentTitle {
+.fetchName {
   margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.recentList {
-  flex: 0 0 auto;
-  height: 420px;
-  max-height: 420px;
-  padding: 8px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.12);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  overflow-y: auto;
-}
-
-@media (max-width: 720px) {
-  .recentList {
-    height: auto;
-    max-height: 60vh;
-  }
-}
-
-@media (max-width: 480px) {
-  .recentList {
-    height: auto;
-    max-height: 55vh;
-  }
-}
-
-@media (max-width: 720px) {
-  .asciiWrap {
-    justify-content: center;
-    align-items: center;
-    max-height: 260px;
-    overflow-y: auto;
-  }
-
-  .asciiArt {
-    margin: 0 auto;
-    font-size: 4px;
-    line-height: 0.85;
-    transform: none; /* avoid horizontal skew on small screens */
-  }
-}
-
-@media (max-width: 480px) {
-  .asciiArt {
-    font-size: 3px;
-  }
-}
-
-.recentItem {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: inherit;
-  background: transparent;
-  transition: background 0.16s ease, transform 0.16s ease;
-}
-
-.recentItem:hover {
-  background: rgba(0, 0, 0, 0.16);
-  transform: translateX(2px);
-}
-
-.recentRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 11px;
-}
-
-.recentTag {
-  padding: 2px 6px;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.24);
   color: var(--text);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-.recentDate {
+.fetchSubtitle {
+  margin: 0;
   color: var(--textMuted);
+  font-size: 12px;
+  line-height: 1.35;
 }
 
-.recentText {
+.fetchList {
+  min-height: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.fetchLine {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+  align-items: baseline;
   font-size: 13px;
+  line-height: 1.35;
+}
+
+.fetchLine dt {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.fetchLine dd {
+  margin: 0;
+  min-width: 0;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.swatches {
+  display: flex;
+  gap: 6px;
+}
+
+.swatch {
+  width: 28px;
+  height: 10px;
+  border: 1px solid color-mix(in oklab, var(--text) 14%, transparent);
+  border-radius: 999px;
+}
+
+.credit {
+  flex: 0 0 auto;
+  color: var(--textMuted);
+  font-size: 11px;
+  line-height: 1.3;
+}
+
+.credit a {
+  color: var(--primary);
 }
 
 .resumeButton {
@@ -202,4 +208,66 @@
   background: rgba(76, 175, 125, 0.9);
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 900px) {
+  .chromeBar,
+  .fetchOutput {
+    width: 100%;
+  }
+
+  .fetchPanel {
+    height: 530px;
+  }
+
+  .fetchOutput {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: start;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .asciiWrap {
+    justify-self: stretch;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .fetchInfo {
+    width: 100%;
+  }
+
+  .asciiArt {
+    font-size: 4px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero {
+    padding-top: 14px;
+  }
+
+  .heroInner {
+    padding: 14px;
+  }
+
+  .fetchPanel {
+    height: 560px;
+    padding: 13px;
+  }
+
+  .fetchName {
+    font-size: 21px;
+  }
+
+  .fetchLine {
+    grid-template-columns: 1fr;
+    gap: 1px;
+    font-size: 12px;
+  }
+
+  .asciiArt {
+    font-size: 3px;
+  }
 }

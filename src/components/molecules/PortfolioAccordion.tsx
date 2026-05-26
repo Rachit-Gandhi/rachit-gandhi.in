@@ -16,7 +16,7 @@ type PortfolioAccordionProps = {
 };
 
 export default function PortfolioAccordion({ title, items, linkHref, anchorId }: PortfolioAccordionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <div className={styles.wrap} id={anchorId}>

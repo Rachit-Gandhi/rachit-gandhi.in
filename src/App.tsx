@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { darkTheme, lightTheme } from "./theme";
 import Layout from "./routes/Layout";
@@ -28,9 +28,15 @@ function getThemeByLocalTime() {
 }
 
 export default function App() {
+  const [theme, setTheme] = useState<typeof lightTheme | typeof darkTheme>(() => getThemeByLocalTime());
+
   useEffect(() => {
-    setThemeVars(getThemeByLocalTime());
-  }, []);
+    setThemeVars(theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((current) => (current.name === lightTheme.name ? darkTheme : lightTheme));
+  };
 
   return (
     <HashRouter>
@@ -38,7 +44,7 @@ export default function App() {
         <Route
           path="/"
           element={
-            <Layout>
+            <Layout themeName={theme.name} onThemeToggle={toggleTheme}>
               <Home />
             </Layout>
           }
@@ -46,7 +52,7 @@ export default function App() {
         <Route
           path="/blog"
           element={
-            <Layout>
+            <Layout themeName={theme.name} onThemeToggle={toggleTheme}>
               <Blog />
             </Layout>
           }
@@ -54,7 +60,7 @@ export default function App() {
         <Route
           path="/blog/:slug"
           element={
-            <Layout>
+            <Layout themeName={theme.name} onThemeToggle={toggleTheme}>
               <BlogPost />
             </Layout>
           }
@@ -62,7 +68,7 @@ export default function App() {
         <Route
           path="/projects"
           element={
-            <Layout>
+            <Layout themeName={theme.name} onThemeToggle={toggleTheme}>
               <Projects />
             </Layout>
           }
@@ -70,7 +76,7 @@ export default function App() {
         <Route
           path="/projects/:slug"
           element={
-            <Layout>
+            <Layout themeName={theme.name} onThemeToggle={toggleTheme}>
               <ProjectItem />
             </Layout>
           }

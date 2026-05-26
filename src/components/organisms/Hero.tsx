@@ -1,15 +1,57 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { projects } from "../../data/projects";
-import { posts as blogPosts } from "./BlogList";
 import styles from "./Hero.module.css";
 
-type RecentItem = {
-  type: "Blog" | "Project";
-  title: string;
-  date: string;
-  href: string;
+type FetchLine = {
+  label: string;
+  value: string;
 };
+
+const fetchLines: FetchLine[] = [
+  {
+    label: "Role",
+    value: "Software engineer brewing production GenAI systems",
+  },
+  {
+    label: "Kernel",
+    value: "Backend architecture, API design, and boring reliability",
+  },
+  {
+    label: "Packages",
+    value: "Python, Go, SQL, FastAPI, Django REST, Gin, Node.js",
+  },
+  {
+    label: "AI Stack",
+    value: "RAG, LangGraph, Azure OpenAI Foundry, Azure AI Search",
+  },
+  {
+    label: "Data Path",
+    value: "PostgreSQL, PySpark, Pinecone, Databricks, Kafka",
+  },
+  {
+    label: "Latest Patch",
+    value: "Multi-agent workflows, LMS OAuth, reusable chat surfaces",
+  },
+  {
+    label: "Paper Trail",
+    value: "Primary author, ICER 2025 code-evaluation research",
+  },
+  {
+    label: "Shell Mood",
+    value: "Ships practical systems; debugs before the coffee gets cold",
+  },
+];
+
+type ColorSwatch = {
+  title: string;
+  color: string;
+};
+
+const swatches: ColorSwatch[] = [
+  { title: "primary", color: "var(--primary)" },
+  { title: "bg", color: "var(--bg)" },
+  { title: "surface", color: "var(--surface)" },
+  { title: "secondary", color: "var(--secondary)" },
+];
 
 export default function Hero() {
   // A broad, side-view cappuccino bowl
@@ -104,66 +146,64 @@ export default function Hero() {
     })
     .join("\n");
 
-  const recentBlogItems: RecentItem[] = blogPosts.map((p) => ({
-    type: "Blog",
-    title: p.title,
-    date: p.date,
-    href: `/blog/${p.slug}`,
-  }));
-
-  const recentProjectItems: RecentItem[] = projects.map((p) => ({
-    type: "Project",
-    title: p.title,
-    date: p.date,
-    href: `/projects/${p.slug}`,
-  }));
-
-  const recentItems: RecentItem[] = [...recentBlogItems, ...recentProjectItems].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
-
   return (
     <section className={styles.hero}>
       <div className={styles.heroInner}>
-        <div className={styles.left}>
-          <div className={styles.asciiWrap}>
-            <pre className={styles.asciiArt}>
-              {visibleSteam}
-              {coffee}
-            </pre>
+        <div className={styles.fetchPanel} aria-label="Rachit neofetch summary">
+          <div className={styles.chromeBar}>
+            <div className={styles.windowDots} aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className={styles.fetchPrompt}>rachit@portfolio:~$ neofetch</div>
           </div>
-          <div className={styles.sub}>
-            Cappuccino moment — ASCII, with steam drawing in layer by layer.
-            {" "}
-            <span className={styles.credit}>
-              Coffee ASCII from{" "}
-              <a
-                href="https://textart.sh/topic/coffee"
-                target="_blank"
-                rel="noreferrer"
-              >
-                textart.sh
-              </a>
-              .
-            </span>
+          <div className={styles.fetchOutput}>
+            <div className={styles.asciiWrap} aria-hidden="true">
+              <pre className={styles.asciiArt}>
+                {visibleSteam}
+                {coffee}
+              </pre>
+            </div>
+            <div className={styles.fetchInfo}>
+              <div className={styles.fetchIdentity}>
+                <h1 className={styles.fetchName}>Rachit Gandhi</h1>
+                <p className={styles.fetchSubtitle}>
+                  Software engineer / backend systems / GenAI pragmatist
+                </p>
+              </div>
+              <dl className={styles.fetchList}>
+                {fetchLines.map((line) => (
+                  <div className={styles.fetchLine} key={line.label}>
+                    <dt>{line.label}</dt>
+                    <dd>{line.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <div className={styles.swatches} aria-label="Theme colors">
+                {swatches.map((swatch) => (
+                  <span
+                    key={swatch.title}
+                    className={styles.swatch}
+                    style={{ background: swatch.color }}
+                    title={swatch.title}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className={styles.credit}>
+            Coffee ASCII from{" "}
+            <a
+              href="https://textart.sh/topic/coffee"
+              target="_blank"
+              rel="noreferrer"
+            >
+              textart.sh
+            </a>
+            . Steam patched in at runtime.
           </div>
         </div>
-        <aside className={styles.recent}>
-          <div className={styles.recentHeader}>
-            <h2 className={styles.recentTitle}>Recent developments</h2>
-          </div>
-          <div className={styles.recentList}>
-            {recentItems.map((item) => (
-              <Link key={`${item.type}-${item.href}`} to={item.href} className={styles.recentItem}>
-                <div className={styles.recentRow}>
-                  <span className={styles.recentTag}>{item.type}</span>
-                  <span className={styles.recentDate}>{item.date}</span>
-                </div>
-                <div className={styles.recentText}>{item.title}</div>
-              </Link>
-            ))}
-          </div>
-        </aside>
       </div>
     </section>
   );

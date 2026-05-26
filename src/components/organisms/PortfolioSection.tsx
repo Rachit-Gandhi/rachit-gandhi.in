@@ -1,22 +1,29 @@
 import { Link } from "react-router-dom";
+import type { ReactNode } from "react";
 import PortfolioAccordion from "../molecules/PortfolioAccordion";
 import type { PortfolioItem } from "../molecules/PortfolioAccordion";
 import ProjectsList from "./ProjectsList";
 import styles from "./PortfolioSection.module.css";
 
-export default function PortfolioSection() {
-  const summaryItems: PortfolioItem[] = [
-    {
-      title: "Profile Summary",
-      description: "Software Engineer focused on production GenAI systems and backend architecture.",
-      bullets: [
-        "Builds LLM APIs, retrieval pipelines, and scalable data workflows.",
-        "Hands-on with backend systems, API design, and AI product integration.",
-        "Interested in applied AI systems that are reliable, observable, and maintainable.",
-      ],
-    },
-  ];
+type SectionRowProps = {
+  title: string;
+  action?: ReactNode;
+  children: ReactNode;
+};
 
+function SectionRow({ title, action, children }: SectionRowProps) {
+  return (
+    <section className={styles.sectionRow}>
+      <div className={styles.sectionLabel}>
+        <h3>{title}</h3>
+        {action}
+      </div>
+      <div className={styles.sectionContent}>{children}</div>
+    </section>
+  );
+}
+
+export default function PortfolioSection() {
   const workItems: PortfolioItem[] = [
     {
       title: "Q3 Technologies · Software Developer (Aug 2025 – Present)",
@@ -40,55 +47,56 @@ export default function PortfolioSection() {
   ];
 
 
-  const publicationItems: PortfolioItem[] = [
-    {
-      title: "Rubric Is All You Need: Improving LLM-based Code Evaluation (ICER 2025)",
-      description: "Primary Author · 21st ACM Conference on International Computing Education Research.",
-    },
-  ];
-
-  const skillsItems: PortfolioItem[] = [
-    {
-      title: "Technical Skills",
-      description: "",
-      bullets: [
-        "Core Languages: Python, Go, SQL",
-        "AI & GenAI: LLMs, RAG, LangChain, LangGraph, Azure ML, Azure AI Foundry",
-        "Backend & APIs: Gin, FastAPI, Flask, Django REST Framework, Node.js",
-        "Data & Storage: PostgreSQL, PySpark, Pinecone, Azure AI Search",
-        "DevOps & Infra: Docker, Apache Kafka",
-      ],
-    },
-  ];
-
-  const educationItems: PortfolioItem[] = [
-    {
-      title:
-        "BITS Pilani (Pilani Campus) — B.E. (Hons.) Electronics & Instrumentation + M.Sc. (Hons.) Mathematics",
-      description: "Sep 2020 – Jun 2025 · Pilani, India",
-    },
+  const skills = [
+    ["Core", "Python, Go, SQL"],
+    ["AI & GenAI", "LLMs, RAG, LangChain, LangGraph, Azure ML, Azure AI Foundry"],
+    ["Backend", "Gin, FastAPI, Flask, Django REST Framework, Node.js"],
+    ["Data", "PostgreSQL, PySpark, Pinecone, Azure AI Search"],
+    ["Infra", "Docker, Apache Kafka"],
   ];
 
   return (
     <section className={styles.section} id="portfolio">
-      <div className={styles.header}>
-        <h2 className={styles.title}>Portfolio</h2>
-      </div>
       <div className={styles.stack}>
-        <PortfolioAccordion title="Summary" items={summaryItems} />
         <PortfolioAccordion title="Work Experience" items={workItems} />
         <div id="projects">
-          <div className={styles.header}>
-            <h3 className={styles.title}>Projects</h3>
-            <Link to="/projects" className={styles.link}>See all</Link>
-          </div>
-          <div className={styles.miniProjects}>
-            <ProjectsList limit={3} />
-          </div>
+          <SectionRow
+            title="Projects"
+            action={<Link to="/projects" className={styles.link}>See all</Link>}
+          >
+            <div className={styles.miniProjects}>
+              <ProjectsList limit={3} />
+            </div>
+          </SectionRow>
         </div>
-        <PortfolioAccordion title="Publication" items={publicationItems} />
-        <PortfolioAccordion title="Technical Skills" items={skillsItems} />
-        <PortfolioAccordion title="Education" items={educationItems} />
+        <SectionRow title="Publication">
+          <div className={styles.publication}>
+            <div>
+              <strong>Rubric Is All You Need: Improving LLM-based Code Evaluation</strong>
+              <span>Primary Author · 21st ACM Conference on International Computing Education Research</span>
+            </div>
+            <span className={styles.meta}>ICER 2025</span>
+          </div>
+        </SectionRow>
+        <SectionRow title="Technical Skills">
+          <div className={styles.skills}>
+            {skills.map(([label, value]) => (
+              <div className={styles.skillRow} key={label}>
+                <span>{label}</span>
+                <p>{value}</p>
+              </div>
+            ))}
+          </div>
+        </SectionRow>
+        <SectionRow title="Education">
+          <div className={styles.education}>
+            <strong>
+              BITS Pilani (Pilani Campus) — B.E. (Hons.) Electronics &
+              Instrumentation + M.Sc. (Hons.) Mathematics
+            </strong>
+            <span>Sep 2020 – Jun 2025 · Pilani, India</span>
+          </div>
+        </SectionRow>
       </div>
     </section>
   );

@@ -1,8 +1,8 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 20px 28px;
+  justify-content: center;
+  padding: 14px 28px;
   border-bottom: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
   position: sticky;
   top: 0;
@@ -10,22 +10,35 @@
   z-index: 10;
 }
 
-.left {
+.nav {
   display: flex;
   align-items: center;
+  gap: 4px;
 }
 
-.right {
-  display: flex;
-  gap: 16px;
-}
-
-.menuToggle {
+.mobileActions {
   display: none;
+  align-items: center;
+  gap: 6px;
+}
+
+.themeToggle,
+.menuToggle {
   background: transparent;
   border: none;
+  border-radius: 6px;
   color: var(--text);
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+}
+
+.themeToggle:hover,
+.menuToggle:hover {
+  background: color-mix(in oklab, var(--text) 8%, transparent);
 }
 
 .linkWrap {
@@ -33,10 +46,16 @@
 }
 
 @media (max-width: 720px) {
-  .right {
+  .header {
+    justify-content: flex-end;
+  }
+
+  .nav {
     display: none;
   }
-  .menuToggle {
-    display: inline-flex;
+
+  .mobileActions {
+    display: flex;
+    align-items: center;
   }
 }
