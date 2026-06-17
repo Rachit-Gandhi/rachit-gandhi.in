@@ -1,46 +1,61 @@
 .card {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 4px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   background: var(--surface);
+  border: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 14px 16px;
   text-decoration: none;
   color: var(--text);
   min-width: 0;
+  min-height: 220px;
+}
+
+.card:hover {
+  border-color: color-mix(in oklab, var(--primary) 38%, transparent);
+  box-shadow: 0 14px 34px color-mix(in oklab, black 12%, transparent);
 }
 
 @media (max-width: 720px) {
   .card {
     padding: 12px;
+    min-height: auto;
   }
 }
 
 .header {
-  grid-column: 1;
-  grid-row: 1;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
 }
 
 .title {
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.summary {
+  margin: 0;
+  color: color-mix(in oklab, var(--text) 78%, var(--textMuted));
+  font-size: 14px;
+  line-height: 1.55;
 }
 
 .stack {
-  grid-column: 1;
-  grid-row: 2;
   font-size: 13px;
   color: var(--textMuted);
+  line-height: 1.45;
 }
 
 .tags {
-  grid-column: 1;
-  grid-row: 3;
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
+  margin-top: auto;
 }
 
 .tag {
@@ -51,23 +66,13 @@
 }
 
 .date {
-  grid-column: 2;
-  grid-row: 1;
+  order: 5;
   font-size: 12px;
   color: var(--textMuted);
   white-space: nowrap;
 }
 
 .icon {
-  grid-column: 2;
-  grid-row: 2 / span 2;
-  justify-self: end;
-  align-self: end;
+  flex: 0 0 auto;
   color: var(--primary);
-}
-
-@media (max-width: 720px) {
-  .card {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
 }

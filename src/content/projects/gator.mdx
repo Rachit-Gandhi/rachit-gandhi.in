@@ -1,14 +1,43 @@
 export const meta = {
-  title: "scrum-cli — Terminal Scrum Workflow Assistant",
+  title: "scrum-cli: Terminal-first Engineering Workflow Assistant",
+  summary: "A CLI/TUI rebuild for meeting-aware engineering workflow capture: standups, meeting notes, retrieval, and issue-system handoff from the terminal.",
   date: "2025-07-25",
-  stack: "Go, CLI, DX Tooling",
-  tags: ["cli", "productivity", "agile", "golang"],
+  stack: "Go, CLI/TUI, Speech, Retrieval, Integrations",
+  tags: ["cli", "workflow", "developer-tools", "golang"],
   github: "https://github.com/Rachit-Gandhi/scrum-cli",
 };
 
-# scrum-cli — Terminal Scrum Workflow Assistant
+# scrum-cli: Terminal-first Engineering Workflow Assistant
 
-- Built a command-line tool to manage day-to-day Scrum workflows directly from the terminal.
-- Designed flows for sprint standups, progress snapshots, and lightweight task updates.
-- Focused on speed and low-friction usage so updates can be done without leaving coding context.
-- Shipped as a simple CLI package suitable for local developer workflows.
+scrum-cli started as a Boot.dev hackathon project and is now being rebuilt from a cleaner architecture.
+
+The rebuild direction is more ambitious than a basic standup helper: a terminal-first engineering workflow assistant that can capture meeting context, turn it into useful notes, and connect that context back into issue trackers and developer workflows.
+
+## Product direction
+
+- CLI/TUI-first interaction with little to no heavy interface.
+- Meeting detection for Google Meet, Microsoft Teams, and Slack calls.
+- Local Mac audio capture for microphone and speaker output.
+- Voice activity detection, small speech models, and diarization for meeting notes.
+- Retrieval over captured notes so past meetings become queryable engineering context.
+- Integrations with Jira, Linear, GitHub, and Bitbucket to manage development-cycle handoff.
+
+## Why this is useful
+
+Most engineering workflow tools force a context switch.
+
+This project aims for the opposite: capture the useful parts of meetings and agile rituals without pulling the engineer out of the terminal. The goal is not to create more process. The goal is to reduce the loss between "we discussed this" and "the repo or issue tracker reflects this."
+
+## Engineering focus
+
+The interesting technical parts are all boundary problems:
+
+- extracting reliable signal from noisy meeting audio,
+- separating speakers well enough to make notes useful,
+- keeping local capture privacy-conscious,
+- deciding what becomes a task versus what stays as context,
+- designing integrations that update trackers without creating bad automation.
+
+## Current status
+
+The public README currently marks the old implementation as cleared for a rebuild. That is the right framing for the project: the old hackathon version proved the direction, and the new version is about architecture, integrations, and reliable workflow capture.

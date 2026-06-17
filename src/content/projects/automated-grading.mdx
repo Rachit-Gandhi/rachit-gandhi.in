@@ -1,14 +1,48 @@
 export const meta = {
-  title: "go-router — OpenRouter-style LLM Router in Go",
+  title: "go-router: Multi-tenant LLM Gateway in Go",
+  summary: "A backend-first OpenRouter-style gateway with separate control and router planes, tenant policy enforcement, API keys, provider keys, and usage logging.",
   date: "2026-01-15",
-  stack: "Go, REST APIs, LLM Routing",
-  tags: ["backend", "api", "llm", "golang"],
+  stack: "Go, PostgreSQL, SQLC, Goose, Next.js",
+  tags: ["backend", "llm-gateway", "multi-tenant", "golang"],
   github: "https://github.com/Rachit-Gandhi/go-router",
 };
 
-# go-router — OpenRouter-style LLM Router in Go
+# go-router: Multi-tenant LLM Gateway in Go
 
-- Built a Go-based API router inspired by OpenRouter-style multi-provider request routing.
-- Implemented provider abstraction patterns to support clean request forwarding and future extensibility.
-- Structured the service for backend reliability, with clear separation between request validation, routing logic, and response handling.
-- Positioned as a practical foundation for unified LLM access in backend applications.
+go-router is a backend-first experiment in building an OpenRouter-style gateway from the inside out.
+
+The point of the project is not just proxying requests. It is the harder backend shape around LLM access: tenant boundaries, team-scoped keys, model policy, provider credentials, and usage records that survive beyond a demo.
+
+## System shape
+
+- `control` plane for orgs, teams, members, sessions, provider keys, and model policies.
+- `router` plane for OpenAI-compatible `/v1/router/chat/completions` requests.
+- PostgreSQL schema with tenant-owned tables carrying `org_id`.
+- SQLC-generated query layer and Goose migrations.
+- Hash-only user API keys and encrypted provider-key storage.
+- Next.js console scaffold for operating the control plane.
+
+## Engineering focus
+
+The main backend lesson was separating product surfaces from trust boundaries.
+
+The router should be small, strict, and policy-aware. It authenticates the team API key, resolves the caller's org/team identity, checks effective allowed models, then returns an OpenAI-shaped response. The control plane owns everything slower and more administrative: sessions, org visibility, team membership, API key lifecycle, provider credentials, and policy reduction.
+
+That split keeps the hot request path understandable while still giving the system room to grow.
+
+## What makes it interesting
+
+- Multi-tenant data model instead of a single-user proxy.
+- Role hierarchy: `org_owner`, `team_admin`, and `member`.
+- Team-admin scope constrained by explicit team mappings.
+- Org-level model allowlists with team-level reductions.
+- Usage logging and redaction hardening work.
+- Test-driven milestones around auth, routing, visibility endpoints, and policy behavior.
+
+## What I learned
+
+LLM routing becomes a backend systems problem very quickly.
+
+Once provider access is shared across teams, the hard parts are no longer just HTTP forwarding. The hard parts are tenancy, policy composition, key safety, failure modes, observability, and making sure the gateway cannot leak another team's state.
+
+That is the part of the stack this project is meant to exercise.

@@ -1,12 +1,13 @@
 export const meta = {
-  title: "TraceFlo — Browser Flow Recorder for Agentic Regression Testing",
+  title: "TraceFlo: Browser Flow Recorder for Agentic Regression Testing",
+  summary: "A Chrome MV3 recorder that captures user intent, action frames, navigation evidence, and screenshots to turn real workflows into replayable test harnesses.",
   date: "2026-06-18",
   stack: "Chrome MV3, TypeScript, Playwright, Browser Automation",
   tags: ["browser-extension", "testing", "automation", "ai"],
   website: "https://traceflo.dev",
 };
 
-# TraceFlo — Browser Flow Recorder for Agentic Regression Testing
+# TraceFlo: Browser Flow Recorder for Agentic Regression Testing
 
 TraceFlo is a browser-extension project for turning real user workflows into deterministic automation evidence.
 
@@ -23,7 +24,7 @@ The core idea is simple: instead of asking an AI browser agent to rediscover a f
 ## Current prototype details
 
 - Chrome MV3 side-panel recorder.
-- Step-oriented recording flow with explicit names like `Step 01 - Start`.
+- Step-oriented recording flow with explicit names such as `Step 01 - Start`.
 - Downloadable JSON export for the structured trace.
 - Separate PNG download flow for navigation and page-state screenshots.
 - Redirect-safe recording that treats tab changes during navigation as part of the active recording instead of a failure.
@@ -50,5 +51,11 @@ The first benchmark direction compares three approaches on the same realistic wo
 3. A TraceFlo deterministic trace harness built from extension logs.
 
 The evaluation focuses on completion rate, retries, runtime, model calls, cost, exact failure point, and how easy the failure is to debug.
+
+## Engineering focus
+
+The main design constraint is to keep TraceFlo from becoming "just another agent."
+
+The recorder should preserve deterministic evidence first: action frames, selector candidates, observer effects, stabilization windows, and linked screenshots. AI can help later with repair or fallback, but the primary artifact should be replayable without asking a model to rediscover the workflow from scratch.
 
 Visit: [traceflo.dev](https://traceflo.dev)

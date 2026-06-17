@@ -5,6 +5,7 @@ import TraceFlo, { meta as traceFloMeta } from "../content/projects/traceflo.mdx
 
 export type ProjectMeta = {
   title: string;
+  summary: string;
   date: string;
   stack: string;
   tags: string[];

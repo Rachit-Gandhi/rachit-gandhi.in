@@ -1,16 +1,39 @@
 export const meta = {
-  title: "Rubric Is All You Need — Project & Paper Summary",
+  title: "Rubric Is All You Need: LLM Code Evaluation Research",
+  summary: "Research on improving LLM-based code grading with question-specific rubrics, multi-agent evaluation approaches, custom datasets, and leniency analysis.",
   date: "2025-08-01",
   stack: "LLMs, Evaluation, Education Research",
-  tags: ["research", "llm", "evaluation", "education"],
+  tags: ["research", "llm-evals", "code-grading", "education"],
   website: "https://arxiv.org/abs/2503.23989",
 };
 
-# Rubric Is All You Need — Project & Paper Summary
+# Rubric Is All You Need: LLM Code Evaluation Research
 
-- Summarized the core idea: **question-specific rubrics** significantly improve LLM-based code evaluation quality versus generic rubrics.
-- Highlighted key research artifacts, including curated datasets for code-evaluation benchmarking in educational settings.
-- Captured the paper's emphasis on better alignment with instructor intent and logical assessment quality.
-- Distilled outcomes into practical insights for building fairer, more consistent AI-assisted grading systems.
+This project sits at the intersection of LLM evaluation, programming education, and assessment design.
+
+The central question is practical: can an LLM grader evaluate student code better when it uses a rubric written for the specific programming problem, instead of a generic grading checklist?
+
+## Research problem
+
+LLMs are already strong at code generation, but code evaluation is more brittle. A generic rubric can miss the actual learning objective of a problem: algorithmic reasoning, object-oriented design, edge-case handling, or the specific constraints an instructor cared about.
+
+This work studies question-specific rubrics as a way to make LLM grading more aligned with instructional intent.
+
+## What the paper contributes
+
+- Multi-agent approaches for evaluating student submissions with problem-specific rubrics.
+- Comparison against question-agnostic rubric methods.
+- Datasets for Data Structures and Algorithms and Object-Oriented Programming submissions.
+- Evaluation with Spearman Correlation and Cohen's Kappa.
+- A Leniency metric for measuring how strict or lenient automated grading is relative to expert assessment.
+- Evidence that question-specific rubrics improve logical assessment and feedback alignment.
+
+## Why it matters
+
+The useful lesson is bigger than education.
+
+Any serious LLM evaluation system needs criteria that match the task. Generic judges create generic feedback. Rubrics make the target behavior explicit, decomposable, and easier to audit.
+
+That idea shows up in product evals, code review agents, AI tutors, and workflow automation: better evaluation starts with better task-specific criteria.
 
 Read the paper: [arXiv link](https://arxiv.org/abs/2503.23989)
