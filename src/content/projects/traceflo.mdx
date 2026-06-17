@@ -1,0 +1,54 @@
+export const meta = {
+  title: "TraceFlo — Browser Flow Recorder for Agentic Regression Testing",
+  date: "2026-06-18",
+  stack: "Chrome MV3, TypeScript, Playwright, Browser Automation",
+  tags: ["browser-extension", "testing", "automation", "ai"],
+  website: "https://traceflo.dev",
+};
+
+# TraceFlo — Browser Flow Recorder for Agentic Regression Testing
+
+TraceFlo is a browser-extension project for turning real user workflows into deterministic automation evidence.
+
+The core idea is simple: instead of asking an AI browser agent to rediscover a flow from scratch every time, record the workflow once, preserve the user intent and browser evidence, then use that trace as the replay and debugging substrate.
+
+## What the web extension records
+
+- User-intent events such as clicks, inputs, scrolls, and navigation transitions.
+- Action frames that group user actions with the browser effects around them.
+- Selector candidates and safe value metadata for later replay/code generation.
+- Network and navigation fingerprints that explain what changed after an action.
+- Visual snapshots captured as separate PNG assets instead of bloating the JSON export.
+
+## Current prototype details
+
+- Chrome MV3 side-panel recorder.
+- Step-oriented recording flow with explicit names like `Step 01 - Start`.
+- Downloadable JSON export for the structured trace.
+- Separate PNG download flow for navigation and page-state screenshots.
+- Redirect-safe recording that treats tab changes during navigation as part of the active recording instead of a failure.
+- Replay planning that can fold full-tab navigation evidence into the preceding user action when the URLs line up.
+
+## Why it matters
+
+Most browser-agent demos answer the wrong question:
+
+> Can an agent eventually complete this workflow?
+
+TraceFlo is testing a more useful engineering question:
+
+> Can a recorded workflow produce a repeatable, diagnosable, and cheaper regression harness than a naive browser agent?
+
+That means the project is not trying to become a general-purpose browser agent. The sharper goal is to capture deterministic action frames, replay them reliably, and only use AI for narrow repair or fallback when the UI changes.
+
+## Benchmark direction
+
+The first benchmark direction compares three approaches on the same realistic workflow:
+
+1. A naive browser agent navigating from a plain-language goal.
+2. An AI-generated Playwright script from a semantic workflow description.
+3. A TraceFlo deterministic trace harness built from extension logs.
+
+The evaluation focuses on completion rate, retries, runtime, model calls, cost, exact failure point, and how easy the failure is to debug.
+
+Visit: [traceflo.dev](https://traceflo.dev)
