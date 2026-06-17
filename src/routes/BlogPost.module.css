@@ -1,0 +1,231 @@
+.page {
+  width: min(100%, 1040px);
+  min-width: 0;
+  margin: 0 auto;
+  padding: 42px 0 80px;
+}
+
+.header {
+  width: 100%;
+  min-width: 0;
+  max-width: 780px;
+  margin: 0 auto 42px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid color-mix(in oklab, var(--text) 14%, transparent);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 34px;
+  color: var(--textMuted);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.backLink::before {
+  content: "<";
+  margin-right: 8px;
+  color: var(--primary);
+}
+
+.backLink:hover {
+  color: var(--text);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  max-width: 760px;
+  color: var(--text);
+  font-size: 42px;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  margin: 18px 0 0;
+  color: var(--textMuted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.article {
+  width: 100%;
+  min-width: 0;
+  max-width: 780px;
+  margin: 0 auto;
+  color: color-mix(in oklab, var(--text) 88%, var(--textMuted));
+  font-size: 17px;
+  line-height: 1.78;
+  overflow-wrap: break-word;
+}
+
+.article > h1:first-child {
+  display: none;
+}
+
+.article h2,
+.article h3 {
+  color: var(--text);
+  letter-spacing: 0;
+}
+
+.article h2 {
+  margin: 52px 0 18px;
+  padding-top: 28px;
+  border-top: 1px solid color-mix(in oklab, var(--text) 14%, transparent);
+  font-size: 26px;
+  line-height: 1.18;
+}
+
+.article h3 {
+  margin: 34px 0 12px;
+  font-size: 19px;
+  line-height: 1.28;
+}
+
+.article p {
+  margin: 0 0 20px;
+}
+
+.article strong {
+  color: var(--text);
+}
+
+.article a {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.article blockquote {
+  max-width: 100%;
+  margin: 30px 0;
+  padding: 20px 24px;
+  border-left: 4px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--primary) 14%, transparent),
+      color-mix(in oklab, var(--surface) 78%, transparent)
+    );
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.article blockquote p {
+  margin: 0;
+}
+
+.article ul,
+.article ol {
+  max-width: 100%;
+  margin: 20px 0 26px;
+  padding: 20px 24px 20px 42px;
+  border: 1px solid color-mix(in oklab, var(--text) 12%, transparent);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--surface) 76%, transparent);
+}
+
+.article li {
+  margin: 7px 0;
+  padding-left: 4px;
+}
+
+.article li::marker {
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.article hr {
+  margin: 42px 0;
+  border: 0;
+  border-top: 1px solid color-mix(in oklab, var(--text) 14%, transparent);
+}
+
+.article code {
+  padding: 2px 6px;
+  border: 1px solid color-mix(in oklab, var(--text) 14%, transparent);
+  border-radius: 5px;
+  background: color-mix(in oklab, var(--surface) 88%, var(--bg));
+  color: var(--text);
+  font-size: 0.92em;
+}
+
+.article pre {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 24px 0 30px;
+  padding: 20px;
+  border: 1px solid color-mix(in oklab, var(--text) 14%, transparent);
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--surface) 84%, black);
+}
+
+.article pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.notFound {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 42px 0 80px;
+  color: var(--text);
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 22px 0 56px;
+  }
+
+  .header {
+    margin-bottom: 30px;
+    padding-bottom: 22px;
+  }
+
+  .backLink {
+    margin-bottom: 24px;
+  }
+
+  .title {
+    font-size: 30px;
+    line-height: 1.12;
+  }
+
+  .article {
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  .article h2 {
+    margin-top: 40px;
+    padding-top: 22px;
+    font-size: 23px;
+  }
+
+  .article blockquote {
+    padding: 18px 18px;
+    font-size: 17px;
+  }
+
+  .article ul,
+  .article ol {
+    padding: 16px 18px 16px 34px;
+  }
+}

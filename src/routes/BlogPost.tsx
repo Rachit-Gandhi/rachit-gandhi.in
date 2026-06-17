@@ -5,8 +5,10 @@ import DeterministicTracesPost from "../content/blogs/deterministic-traces-vs-br
 import OpenClawPi5Post from "../content/blogs/openclaw-raspberry-pi5-multi-surface-workflows.mdx";
 import OpenClawPost from "../content/blogs/openclaw-on-codex-and-raspi.mdx";
 import SamplePost from "../content/blogs/sample.mdx";
+import { posts as postMetas } from "../data/blogPosts";
+import styles from "./BlogPost.module.css";
 
-const posts: Record<string, React.FC> = {
+const postComponents: Record<string, React.FC> = {
   "deterministic-traces-vs-browser-agents": DeterministicTracesPost,
   "openclaw-raspberry-pi5-multi-surface-workflows": OpenClawPi5Post,
   "about-me-quirky-builder": AboutMeQuirkyBuilder,
@@ -17,13 +19,32 @@ const posts: Record<string, React.FC> = {
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const Post = slug ? posts[slug] : null;
+  const Post = slug ? postComponents[slug] : null;
+  const meta = slug ? postMetas.find((post) => post.slug === slug) : null;
 
-  if (!Post) return <div>Post not found.</div>;
+  if (!Post) return <div className={styles.notFound}>Post not found.</div>;
 
   return (
-    <article>
-      <Post />
-    </article>
+    <main className={styles.page}>
+      <header className={styles.header}>
+        <a className={styles.backLink} href="/#/blog">
+          Blog
+        </a>
+        <p className={styles.eyebrow}>Engineering Notes</p>
+        <h1 className={styles.title}>{meta?.title}</h1>
+        {meta?.date ? <p className={styles.meta}>{formatDate(meta.date)}</p> : null}
+      </header>
+      <article className={styles.article}>
+        <Post />
+      </article>
+    </main>
   );
+}
+
+function formatDate(date: string) {
+  return new Intl.DateTimeFormat("en", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(`${date}T00:00:00`));
 }
