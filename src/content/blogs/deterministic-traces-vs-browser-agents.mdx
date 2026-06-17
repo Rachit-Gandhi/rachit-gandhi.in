@@ -1,0 +1,104 @@
+# Deterministic Traces vs Browser Agents, Part 1: Designing the Benchmark
+
+This is Part 1 of a two-part engineering note.
+
+In this part, I am designing the benchmark and sharpening the hypothesis. In Part 2, I will run the test and compare the results.
+
+The question I want to test is:
+
+> Does a deterministic flow trace produce a better automation harness than a naive browser agent?
+
+That question is much more useful than asking whether "AI can use a browser." Browser agents can look impressive in demos, but product engineering needs a harsher test: can the system repeat a realistic workflow, survive small UI changes, fail at the right point, and explain what broke?
+
+## The problem with vague agent benchmarks
+
+A lot of browser-agent evaluation collapses into vibes:
+
+- the agent eventually clicked the right thing,
+- it recovered after a few tries,
+- the demo worked once,
+- the failure was hard to reproduce.
+
+That is not enough for regression testing.
+
+If the product promise is reliable workflow replay, the benchmark has to measure repeatability, cost, failure clarity, and tolerance to normal frontend churn.
+
+## Part 1 scope: design the experiment
+
+This post is intentionally not claiming benchmark results yet.
+
+The goal here is to define a fair test before running it: same workflow, same perturbations, same metrics, and clear success criteria. That matters because otherwise the comparison turns into a demo contest instead of an engineering signal.
+
+## The experiment shape
+
+The core comparison should use the same workflow across three arms:
+
+1. A naive browser agent that navigates from a plain-language goal.
+2. An off-the-shelf AI Playwright generator that creates automation from a semantic description.
+3. A TraceFlo-style deterministic harness built from recorded action frames.
+
+The important part is that all three systems get tested on the same workflow, under the same perturbations, with the same scoring.
+
+## Use a real workflow, not a toy
+
+The first candidate I landed on was OWASP Juice Shop.
+
+It is local, realistic enough, and messy in the right ways:
+
+- login,
+- search,
+- cart or checkout-like steps,
+- dynamic UI,
+- async behavior,
+- route changes,
+- modals and validation states.
+
+That makes it better than a tiny demo app, but still controlled enough to run repeatedly.
+
+## What to measure
+
+The benchmark should capture:
+
+- completion rate,
+- runtime,
+- browser actions,
+- model calls,
+- retries,
+- token and cost footprint,
+- exact failure point,
+- diagnosability of the failure,
+- stability across repeated runs.
+
+The last two matter a lot. A regression tool that only says "the agent failed" is not very useful. A good harness should tell me which user-intent step failed and what changed around it.
+
+## The perturbation tests
+
+The real test is not the happy path. It is what happens when the app changes in small, realistic ways:
+
+- button text changes,
+- DOM order shifts,
+- an extra modal appears,
+- CSS classes churn,
+- layout changes,
+- a request takes longer,
+- a route changes slightly.
+
+This is where deterministic traces can prove their value. They should not become another general-purpose agent. They should replay recorded action frames first, then use AI only for narrow repair or fallback.
+
+## The engineering lesson
+
+The useful move was changing the question from:
+
+> Can an AI agent perform this workflow?
+
+to:
+
+> Which harness gives the most repeatable, debuggable, and cost-efficient replay under realistic UI change?
+
+That framing forces the product into measurable engineering territory.
+
+For TraceFlo, the proof wedge is not "AI browser automation." It is recorded user intent, bounded stabilization windows, selector candidates, safe value metadata, and failure reports that make regression testing less vague.
+
+That is the kind of benchmark that can actually tell whether the idea is worth building.
+
+Part 2 will be the execution pass: run the workflow, collect the metrics, break the UI in controlled ways, and see which approach actually holds up.

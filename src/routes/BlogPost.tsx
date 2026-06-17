@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 import AboutMeQuirkyBuilder from "../content/blogs/about-me-quirky-builder.mdx";
 import ClarifyBeforeCode from "../content/blogs/clarify-before-code.mdx";
+import DeterministicTracesPost from "../content/blogs/deterministic-traces-vs-browser-agents.mdx";
 import OpenClawPi5Post from "../content/blogs/openclaw-raspberry-pi5-multi-surface-workflows.mdx";
 import OpenClawPost from "../content/blogs/openclaw-on-codex-and-raspi.mdx";
 import SamplePost from "../content/blogs/sample.mdx";
 
 const posts: Record<string, React.FC> = {
+  "deterministic-traces-vs-browser-agents": DeterministicTracesPost,
   "openclaw-raspberry-pi5-multi-surface-workflows": OpenClawPi5Post,
   "about-me-quirky-builder": AboutMeQuirkyBuilder,
   "openclaw-on-codex-and-raspi": OpenClawPost,
