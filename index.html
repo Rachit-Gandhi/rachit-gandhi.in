@@ -4,6 +4,81 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/site-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --bg: #4B362C;
+        --surface: #5D4A41;
+        --primary: #7A9447;
+        --secondary: #4E6447;
+        --highlight: #6E5E56;
+        --text: #E8DCC8;
+        --textMuted: #81726B;
+      }
+
+      html,
+      body,
+      #root {
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--text);
+      }
+    </style>
+    <script>
+      (() => {
+        const lightTheme = {
+          name: "mint-latte",
+          colors: {
+            bg: "#EDE6D8",
+            surface: "#F3EDE4",
+            primary: "#4CAF7D",
+            secondary: "#7FBFA1",
+            accent: "#A67C52",
+            text: "#1F3A2E",
+            textMuted: "#5C6F63",
+          },
+        };
+        const darkTheme = {
+          name: "matcha-moccha",
+          colors: {
+            bg: "#4B362C",
+            surface: "#5D4A41",
+            primary: "#7A9447",
+            secondary: "#4E6447",
+            highlight: "#6E5E56",
+            text: "#E8DCC8",
+            textMuted: "#81726B",
+          },
+        };
+        const themeCookie = document.cookie
+          .split("; ")
+          .find((cookie) => cookie.startsWith("rg-theme="));
+        const savedThemeName = themeCookie
+          ? decodeURIComponent(themeCookie.split("=")[1] || "")
+          : "";
+        const savedTheme = savedThemeName === lightTheme.name
+          ? lightTheme
+          : savedThemeName === darkTheme.name
+            ? darkTheme
+            : null;
+        const getThemeByLocalTime = () => {
+          const now = new Date();
+          const hours = now.getHours();
+          const minutes = now.getMinutes();
+          const isLight = hours > 9 || (hours === 9 && minutes >= 0)
+            ? hours < 17 || (hours === 17 && minutes <= 30)
+            : false;
+
+          return isLight ? lightTheme : darkTheme;
+        };
+        const theme = savedTheme || getThemeByLocalTime();
+        const root = document.documentElement;
+
+        Object.entries(theme.colors).forEach(([key, value]) => {
+          root.style.setProperty(`--${key}`, value);
+        });
+        root.setAttribute("data-theme", theme.name);
+      })();
+    </script>
     <title>rachit-gandhi.in</title>
   </head>
   <body>

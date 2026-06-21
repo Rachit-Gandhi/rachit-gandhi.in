@@ -9,12 +9,35 @@ import Projects from "./routes/Projects";
 import ProjectItem from "./routes/ProjectItem";
 import "./styles/global.css";
 
-function setThemeVars(theme: typeof lightTheme | typeof darkTheme) {
+type Theme = typeof lightTheme | typeof darkTheme;
+
+const themeCookieName = "rg-theme";
+
+function setThemeVars(theme: Theme) {
   const root = document.documentElement;
   Object.entries(theme.colors).forEach(([k, v]) => {
     root.style.setProperty(`--${k}`, v as string);
   });
   root.setAttribute("data-theme", theme.name);
+}
+
+function getThemeByName(name: string | undefined) {
+  if (name === lightTheme.name) return lightTheme;
+  if (name === darkTheme.name) return darkTheme;
+  return null;
+}
+
+function getThemeCookie() {
+  const themeCookie = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith(`${themeCookieName}=`));
+
+  return themeCookie ? decodeURIComponent(themeCookie.split("=")[1] ?? "") : undefined;
+}
+
+function saveThemeCookie(theme: Theme) {
+  const maxAgeSeconds = 60 * 60 * 24 * 365;
+  document.cookie = `${themeCookieName}=${encodeURIComponent(theme.name)}; Max-Age=${maxAgeSeconds}; Path=/; SameSite=Lax`;
 }
 
 function getThemeByLocalTime() {
@@ -27,15 +50,23 @@ function getThemeByLocalTime() {
   return isLight ? lightTheme : darkTheme;
 }
 
+function getInitialTheme() {
+  return getThemeByName(getThemeCookie()) ?? getThemeByLocalTime();
+}
+
 export default function App() {
-  const [theme, setTheme] = useState<typeof lightTheme | typeof darkTheme>(() => getThemeByLocalTime());
+  const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
 
   useEffect(() => {
     setThemeVars(theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((current) => (current.name === lightTheme.name ? darkTheme : lightTheme));
+    setTheme((current) => {
+      const nextTheme = current.name === lightTheme.name ? darkTheme : lightTheme;
+      saveThemeCookie(nextTheme);
+      return nextTheme;
+    });
   };
 
   return (
