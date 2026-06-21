@@ -1,0 +1,136 @@
+import MermaidDiagram from "../../components/molecules/MermaidDiagram";
+
+TraceFlo is moving from "record what happened in a browser" toward a more useful artifact: a reusable workflow graph.
+
+That distinction matters.
+
+A raw browser trace can tell you the order of clicks, inputs, navigations, and requests. A workflow graph can tell you what those actions mean, which states they require, and which later flows can reuse them.
+
+The latest `web-extension` work pushes TraceFlo further in that direction.
+
+## The shape of the update
+
+The important change is that reusable setup should be recorded as its own segment instead of being hidden inside every objective.
+
+For example, an ecommerce test should not become:
+
+```text
+signup -> login checkout -> login view orders -> login track order
+```
+
+That trace works, but it repeats setup noise. Login becomes scattered across several flows, and the generated artifact has to guess that those repeated actions represent one shared prerequisite.
+
+The better shape is:
+
+```text
+auth.signup -> auth.login -> order.checkout -> orders.view -> orders.track_order
+```
+
+Now `auth.login` is a real recorded segment. `order.checkout`, `orders.view`, and `orders.track_order` can depend on the authenticated state without owning the login steps themselves.
+
+That is a much cleaner product contract.
+
+## Why this matters for agents
+
+Browser agents struggle when they have to rediscover everything from scratch:
+
+- where login lives,
+- which state must exist before checkout,
+- whether an order already exists,
+- which network request actually confirms success,
+- where a failure happened when the UI changes.
+
+TraceFlo's advantage should be that it captures deterministic evidence once, then turns it into a reusable map.
+
+With reusable segments, an agent or runner can reason from state:
+
+- `auth.signup` produces `account.exists`,
+- `auth.login` requires `account.exists` and produces `session.authenticated`,
+- `order.checkout` requires `session.authenticated` and produces `order.exists`,
+- `orders.view` requires `order.exists` and `session.authenticated`,
+- `orders.track_order` can start from the existing order/history state.
+
+<MermaidDiagram
+  chart={`flowchart TD
+  Root(("Recorded objectives"))
+  Account(("Account exists"))
+  Authenticated(("Authenticated session"))
+  OrderExists(("Order exists"))
+  OrderHistory(("Order history"))
+  TrackingResult(("Tracking result"))
+  S1["auth.signup<br/>17 actions"]
+  S2["auth.login<br/>7 actions"]
+  S3["order.checkout<br/>52 actions"]
+  S4["orders.view<br/>3 actions"]
+  S5["orders.track_order<br/>2 actions"]
+  Root --> S1
+  S1 -->|"produces"| Account
+  Account -->|"requires"| S2
+  S2 -->|"produces"| Authenticated
+  Authenticated -->|"requires"| S3
+  S3 -->|"produces"| OrderExists
+  Authenticated -->|"requires"| S4
+  OrderExists -->|"requires"| S4
+  S4 -->|"opens"| OrderHistory
+  Authenticated -->|"requires"| S5
+  OrderExists -->|"requires"| S5
+  OrderHistory -->|"starts from"| S5
+  S5 -->|"produces"| TrackingResult`}
+  caption="Rendered from the reusable-segment Mermaid graph generated in the TraceFlo Juice Shop example."
+/>
+
+That is more valuable than a long timeline because it exposes the dependency structure behind the workflow.
+
+## The graph still needs human review
+
+Another good part of the update is restraint.
+
+TraceFlo can infer candidate `requires` and `produces` labels, but those labels should not be treated as perfect semantic truth. The generated artifact now makes room for a dependency-label review step, where a human confirms or edits the graph before treating it as a deterministic runner contract.
+
+That is the right line.
+
+The recorder should automate capture, grouping, redaction, network evidence, and first-pass graph generation. The human should still approve the meaning of app-specific states like "order exists" or "authenticated session" before those labels become a contract.
+
+## Network waits are part of the product
+
+The latest main branch also tightens the recorder's network-observation behavior.
+
+That is not just test cleanup. It is core product work.
+
+If TraceFlo is going to produce replayable workflows, it has to know which network effects belong to which user action. A click that triggers a full-tab navigation, a route-data fetch after SPA navigation, and a background refresh should not all be treated the same.
+
+The useful replay artifact is not:
+
+```text
+click button, wait a bit
+```
+
+It is closer to:
+
+```text
+click button, then wait for the specific user-intent or navigation request that proves the app reached the next state
+```
+
+That is how TraceFlo becomes debuggable. When replay fails, the failure report can point at the missing state transition instead of saying the browser did not do the right thing.
+
+## What traceflo.dev is becoming
+
+The product story for [traceflo.dev](https://traceflo.dev) is getting sharper:
+
+- record real workflows from the browser,
+- split them into reusable user-intent segments,
+- attach navigation, screenshot, console, and network evidence,
+- infer a reviewable dependency graph,
+- generate deterministic replay plans from state rather than from one fixed timeline.
+
+That is a better wedge than "AI browser automation."
+
+TraceFlo should not compete with general agents at being vague and flexible. It should give engineers and agents a stronger starting point: recorded intent, explicit prerequisites, bounded waits, and a graph that can be reviewed.
+
+## The takeaway
+
+The newest TraceFlo work is a step toward composable workflow intelligence.
+
+The browser extension is not just collecting events anymore. It is shaping those events into segments, states, waits, and reviewable contracts.
+
+That is the artifact I want for agentic regression testing: less guessing, more structure, and failures that explain themselves.

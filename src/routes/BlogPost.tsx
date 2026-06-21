@@ -5,10 +5,12 @@ import DeterministicTracesPost from "../content/blogs/deterministic-traces-vs-br
 import OpenClawPi5Post from "../content/blogs/openclaw-raspberry-pi5-multi-surface-workflows.mdx";
 import OpenClawPost from "../content/blogs/openclaw-on-codex-and-raspi.mdx";
 import SamplePost from "../content/blogs/sample.mdx";
+import TraceFloReusableSegmentsPost from "../content/blogs/traceflo-reusable-segments-and-network-waits.mdx";
 import { posts as postMetas } from "../data/blogPosts";
 import styles from "./BlogPost.module.css";
 
 const postComponents: Record<string, React.FC> = {
+  "traceflo-reusable-segments-and-network-waits": TraceFloReusableSegmentsPost,
   "deterministic-traces-vs-browser-agents": DeterministicTracesPost,
   "openclaw-raspberry-pi5-multi-surface-workflows": OpenClawPi5Post,
   "about-me-quirky-builder": AboutMeQuirkyBuilder,

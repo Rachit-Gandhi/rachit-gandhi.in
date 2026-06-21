@@ -7,6 +7,11 @@ export type BlogPostMeta = {
 
 export const posts: BlogPostMeta[] = [
   {
+    title: "TraceFlo Update: Reusable Segments, Not Just Longer Browser Traces",
+    date: "2026-06-21",
+    slug: "traceflo-reusable-segments-and-network-waits",
+  },
+  {
     title: "Deterministic Traces vs Browser Agents, Part 1: Designing the Benchmark",
     date: "2026-06-17",
     slug: "deterministic-traces-vs-browser-agents",

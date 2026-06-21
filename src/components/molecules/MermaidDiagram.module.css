@@ -1,0 +1,62 @@
+.figure {
+  width: min(100%, 980px);
+  margin: 34px auto 36px;
+}
+
+.viewport {
+  width: 100%;
+  overflow-x: auto;
+  padding: 18px;
+  border: 1px solid color-mix(in oklab, var(--text) 14%, transparent);
+  border-radius: 8px;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--surface) 90%, var(--bg)),
+      color-mix(in oklab, var(--bg) 88%, var(--primary))
+    );
+}
+
+.content {
+  min-width: 760px;
+}
+
+.content :global(svg) {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 520px;
+}
+
+.caption {
+  margin: 12px 0 0;
+  color: var(--textMuted);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.error {
+  margin: 0;
+  white-space: pre-wrap;
+  color: var(--text);
+  font-size: 13px;
+}
+
+@media (max-width: 720px) {
+  .figure {
+    margin: 28px auto 30px;
+  }
+
+  .viewport {
+    padding: 12px;
+  }
+
+  .content {
+    min-width: 700px;
+  }
+
+  .content :global(svg) {
+    min-height: 500px;
+  }
+}
